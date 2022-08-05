@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
+import './App.scss';
 import { getGenres } from './app/services/API';
+
+
+
 
 function App() {
    // const [loading, setLoading] = useState(true);
@@ -11,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-        <h2>Deneme</h2>
+        <h2>deneme</h2>
     </div>
   );
 }
