@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export type User = {
   name?: string;
   email: string;
@@ -18,3 +20,15 @@ export type State = {
   userInfo: User | undefined;
   error: any;
 };
+
+
+export interface PreferencesProps{
+  genres: {id:number,name:string}[];
+
+}
+
+
+export type PreferencesCartProps= {
+  items: object[];
+  header:string
+}

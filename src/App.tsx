@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate, useHref } from "react-router-dom";
 import { USER_LOGIN_SUCCESS } from './app/storage/redux/constants';
@@ -9,25 +9,28 @@ import RegisterForm from './views/Forms/registerForm';
 import LoginForm from './views/Forms/loginForm';
 import Home from './views/Home';
 import { useAppDispatch, useAppSelector } from './app/storage/store';
+import Preferences from './views/Preferences';
 
 
 
 
-function App(props:any) {
-  //  const [loading, setLoading] = useState(true);
+function App(props: any) {
+  const [genres, setGenres] = useState([]);
   const dispatch = useAppDispatch();
 
 
-const goTo=useHref
+  const goTo = useHref
 
   const { userInfo } = useAppSelector((state) => state.user);
-  
+
 
 
 
   useEffect(() => {
     getGenres()
-      .then(resp => console.log(resp))
+      .then(resp =>
+        setGenres(resp.genres)
+    )
       .then(() => {
         const user: string | undefined = Cookies.get("userInfo")
         if (user) {
@@ -67,6 +70,11 @@ const goTo=useHref
                 path="/login"
                 element={userInfo ? <Navigate to="/home" /> : <LoginForm />}
               />
+              <Route
+                path="/preferences"
+                element={userInfo ? <Preferences genres={genres} /> : <Navigate to="/login" />}
+              />
+
               {/* <Route path="*" element={<Error />} /> */}
             </Routes>
           </BrowserRouter>
