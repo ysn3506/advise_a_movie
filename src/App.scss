@@ -6,6 +6,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("./app/assets/pexels-cottonbro-3945321.jpeg");
+  .app-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width:100vw;
+      min-height: 100vh;
+    background-color: rgb(19, 30, 45, 0.6);
+  }
 }
 
 

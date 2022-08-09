@@ -57,6 +57,7 @@ function App(props: any) {
 
   return (
     <div className="App">
+      <div className='app-wrapper'>
       <SwitchTransition mode="out-in">
         <CSSTransition key={userInfo} classNames="fade" timeout={250}>
           <BrowserRouter>
@@ -88,7 +89,8 @@ function App(props: any) {
             </Routes>
           </BrowserRouter>
         </CSSTransition>
-      </SwitchTransition>
+        </SwitchTransition>
+      </div>
     </div>
   );
 }
