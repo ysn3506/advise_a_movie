@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { getGenres } from './app/services/API';
 import RegisterForm from './views/Forms/registerForm';
 import LoginForm from './views/Forms/loginForm';
+import Home from './views/Home';
 import { useAppDispatch, useAppSelector } from './app/storage/store';
 
 
@@ -19,9 +20,7 @@ function App(props:any) {
 
 const goTo=useHref
 
-  const selector = useAppSelector;
-
-  const { userInfo } = selector((state) => state.user);
+  const { userInfo } = useAppSelector((state) => state.user);
   
 
 
@@ -40,8 +39,6 @@ const goTo=useHref
         goTo("/login");
         throw error
       })
-  
-
   }, [])
 
 
@@ -55,16 +52,20 @@ const goTo=useHref
               <Route
                 path="/"
                 element={
-                  !userInfo ? <Navigate to="/register" /> : <Navigate to="/login" />
+                  userInfo ? <Navigate to="/home" /> : <Navigate to="/login" />
                 }
               />
               <Route
                 path="/register"
-                element={<RegisterForm />}
+                element={userInfo ? <Navigate to="/home" /> : <RegisterForm />}
+              />
+              <Route
+                path="/home"
+                element={userInfo ? <Home /> : <Navigate to="/login" />}
               />
               <Route
                 path="/login"
-                element={<LoginForm />}
+                element={userInfo ? <Navigate to="/home" /> : <LoginForm />}
               />
               {/* <Route path="*" element={<Error />} /> */}
             </Routes>

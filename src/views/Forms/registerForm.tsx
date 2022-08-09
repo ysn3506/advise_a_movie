@@ -47,7 +47,7 @@ function RegisterForm(props: any) {
                 password: password,
                 preferences: {}
             }
-            register({ name: user.name, email: user.email, password: user.password });
+            register({ name: user.name, email: user.email, password: user.password })
         }
     };
 
