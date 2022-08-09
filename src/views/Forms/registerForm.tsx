@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect, FormEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/storage/store';
+import React, { useState, FormEvent, useEffect } from 'react';
+import { useAppSelector } from '../../app/storage/store';
 import { register } from '../../app/storage/redux/actions';
 import { Form, Button } from 'semantic-ui-react'
-import { User, State } from '../../app/types/types';
+import { User } from '../../app/types/types';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -18,7 +19,7 @@ function RegisterForm(props: any) {
     const [message, setMessage] = useState("");
     const [confirmpassword, setConfirmPassword] = useState("");
 
-    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const selector = useAppSelector;
 
     const { loading, error, userInfo } = selector((state) => state.user);
@@ -26,12 +27,12 @@ function RegisterForm(props: any) {
 
 
 
-    // useEffect(() => {
-    //     const { history } = props;
-    //     if (userInfo) {
-    //         history.push('/')
-    //     }
-    // }, [userInfo]);
+    useEffect(() => {
+
+        if (userInfo) {
+            navigate('/')
+        }
+    }, [userInfo]);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();

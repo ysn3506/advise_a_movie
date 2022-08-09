@@ -18,10 +18,8 @@ import { State,Action } from "../../types/types";
 
 
 
-
-const userInfoFromStorage = Cookies.get("userInfo")
-  ? JSON.parse(localStorage.get("userInfo"))
-  : null;
+const userFromCookie=Cookies.get("userInfo")
+const userInfoFromStorage = userFromCookie ? JSON.parse(userFromCookie) : null;
 
 
 const initialState: State = {
