@@ -1,5 +1,3 @@
-// import { api } from "./API_BASE"
-import axios from "axios";
 import { User } from "../types/types";
 import api from "./API_BASE";
 
@@ -36,6 +34,32 @@ export const getPersonInfo = async (person_id: number) => {
   }
 };
 
+export const getPopularArtists = async () => {
+  try {
+    const response = await api.get(
+      `person/popular?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const getLatestArtists = async () => {
+  try {
+    const response = await api.get(
+      `person/latest?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
 export const getMoviesByCriterias = async (query: any) => {
   try {
     let endpoint =
@@ -49,6 +73,8 @@ export const getMoviesByCriterias = async (query: any) => {
     console.log(error);
   }
 };
+
+
 
 
 

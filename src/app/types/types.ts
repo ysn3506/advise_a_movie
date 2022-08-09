@@ -21,14 +21,31 @@ export type State = {
   error: any;
 };
 
+export type Artist = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department?: object[];
+  name: string;
+  popularity: number;
+  profile_path: string;
+};
+
+
+export type Genre = {
+  id: number;
+  name: string;
+};
 
 export interface PreferencesProps{
-  genres: {id:number,name:string}[];
+  genres: Genre[];
+  popularArtists:Artist[]
 
 }
 
 
 export type PreferencesCartProps= {
-  items: object[];
-  header:string
+  items: Artist[]|Genre[];
+  header: string
+  type:string
 }

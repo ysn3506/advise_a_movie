@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate, useHref } from "react-router-do
 import { USER_LOGIN_SUCCESS } from './app/storage/redux/constants';
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Cookies from "js-cookie";
-import { getGenres } from './app/services/API';
+import { getGenres, getLatestArtists, getPopularArtists } from './app/services/API';
 import RegisterForm from './views/Forms/registerForm';
 import LoginForm from './views/Forms/loginForm';
 import Home from './views/Home';
@@ -16,6 +16,8 @@ import Preferences from './views/Preferences';
 
 function App(props: any) {
   const [genres, setGenres] = useState([]);
+  const [popularArtists, setPopularArtists] = useState([]);
+  const [latestArtists, setLatestArtists] = useState([])
   const dispatch = useAppDispatch();
 
 
@@ -31,6 +33,13 @@ function App(props: any) {
       .then(resp =>
         setGenres(resp.genres)
     )
+      
+    getPopularArtists()
+      .then(resp => setPopularArtists(resp.results))
+
+
+    getLatestArtists()
+    .then(resp=>setLatestArtists(resp.results))    
       .then(() => {
         const user: string | undefined = Cookies.get("userInfo")
         if (user) {
@@ -72,7 +81,7 @@ function App(props: any) {
               />
               <Route
                 path="/preferences"
-                element={userInfo ? <Preferences genres={genres} /> : <Navigate to="/login" />}
+                element={userInfo ? <Preferences genres={genres} popularArtists={popularArtists}/> : <Navigate to="/login" />}
               />
 
               {/* <Route path="*" element={<Error />} /> */}
