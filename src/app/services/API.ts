@@ -1,10 +1,11 @@
 // import { api } from "./API_BASE"
 import axios from "axios";
-import { api } from "./API_BASE";
+import { User } from "../types/types";
+import api from "./API_BASE";
 
 export const getGenres = async () => {
   try {
-    const response = await api().get(
+    const response = await api.get(
       `/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}`
     );
     return response.data;
@@ -15,7 +16,7 @@ export const getGenres = async () => {
 
 export const getWeeklyTrends = async () => {
   try {
-    const response = await api().get(
+    const response = await api.get(
       `/trending/all/week?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}`
     );
     return response.data;
@@ -26,7 +27,7 @@ export const getWeeklyTrends = async () => {
 
 export const getPersonInfo = async (person_id: number) => {
   try {
-    const response = await api().get(
+    const response = await api.get(
       `person/${person_id}?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
     );
     return response.data;
@@ -42,7 +43,7 @@ export const getMoviesByCriterias = async (query: any) => {
     await Object.keys(query).forEach((key: string) => {
       endpoint = endpoint + `&${key}=${query[key]}`;
     });
-    const response = await api().get(endpoint);
+    const response = await api.get(endpoint);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -51,23 +52,16 @@ export const getMoviesByCriterias = async (query: any) => {
 
 
 
-export const registerUser = async (user: object)=>{
-  try {
-    await axios.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users`, JSON.stringify(user));
-    
-  } catch (error) {
-    console.log(error)
-  }
+export const registerUser = (user: User) =>
+  api.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users`, user);
 
-}
 
-export const authUser = async (user: object) => {
-  try {
-    await axios.post(
-      `${process.env.REACT_APP_USER_BACKEND_URL}/api/users/login`,
-      JSON.stringify(user)
+export const authUser = (user: User) =>
+  api.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users/login`, user);
+ 
+
+export const updateUser = (user: User) =>api.post(
+      `${process.env.REACT_APP_USER_BACKEND_URL}/api/users/profile`,
+     user
     );
-  } catch (error) {
-    console.log(error);
-  }
-};
+ 

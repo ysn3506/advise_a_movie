@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.scss';
 import { getGenres } from './app/services/API';
-
-
+import RegisterForm from './views/Forms/registerForm';
 
 
 function App() {
@@ -14,7 +13,8 @@ function App() {
 
   return (
     <div className="App">
-        <h2>deneme</h2>
+      <h2>deneme</h2>
+      <RegisterForm/>
     </div>
   );
 }
