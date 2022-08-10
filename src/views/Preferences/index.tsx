@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Button } from 'semantic-ui-react';
 import { PreferencesProps } from '../../app/types/types';
 import PreferencesCart from '../../components/preferencesCart';
 import "./style.scss"
@@ -7,13 +8,14 @@ import "./style.scss"
 
 
 function Preferences({ genres, popularArtists }: PreferencesProps) {
-    const movieStyles= [{id:1,name:"Latest Trends"},{id:2, name:"Best of All Times"}]
+    const movieStyles = [{ id: 1, name: "Latest Trends" }, { id: 2, name: "All Time Bests" }]
     return (
         <div className='preferences'>
             <h1>Select preferences...</h1>
             <PreferencesCart header="What kind of films do you like?" items={genres} type="genre" />
             <PreferencesCart header="Which one do you prefer ?" items={movieStyles} type="genre" />
             <PreferencesCart header="Who are your favourite actors/actresses ?" items={popularArtists} type="artist" />
+            <Button className='secondary-button'> SHOW THE RECOMMENDED MOVIES</Button>
             
         </div>
     );

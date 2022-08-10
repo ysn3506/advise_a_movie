@@ -1,12 +1,24 @@
-import React from 'react';
-import { Card } from "semantic-ui-react"
-function ArtistCart(artist:any) {
-    const { profile_path, name } = artist.artist;
+
+import './style.scss'
+
+
+function ArtistCart(props: any) {
+    console.log(props)
+    const { artist } = props;
+    const { profile_path, name } = artist;
+
     return (
-        <Card className='artist-cart'
-            image={`https://image.tmdb.org/t/p/w300/${profile_path}`}
-            header={name }
-        />
+        <div className='artist-card-wrapper'>
+            <div className='artist-card-image-wrapper'>
+
+                <img src={
+                    `https://image.tmdb.org/t/p/w300/${profile_path}`} alt="actor" />
+            </div>
+            <div className='artist-name'>
+                <p>{name}</p>
+            </div>
+
+        </div>
     );
 }
 

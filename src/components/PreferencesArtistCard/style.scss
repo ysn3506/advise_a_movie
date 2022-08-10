@@ -1,0 +1,45 @@
+
+.preferences-artist-card-wrapper{
+        margin: 10px auto;
+    .clicked{
+    background-color: rgb(255, 255, 255,0.8)!important;
+}
+.artist-card-hover-effect{
+    opacity:0;
+    height:0%;
+    width:100%;
+    z-index: 2;
+    position: absolute;
+    bottom:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato,'Helvetica Neue',Arial, Helvetica,sans-serif;
+    font-weight: 700;
+    font-size: 1.28571429rem;
+    font-style: normal;
+    background-color: rgb(255, 255, 255,0.6);
+    transition: height ease-in-out 250ms, opacity ease-in-out 250ms;
+    -webkit-transition:height ease-in-out 250ms, opacity ease-in-out 250ms;
+}
+
+.artist-card-hover-effect.selected {
+    opacity: 1;
+    height: 100%;
+    transition: height ease-in-out 250ms, opacity ease-in-out 250ms;
+    -webkit-transition: height ease-in-out 250ms, opacity ease-in-out 250ms;
+}
+
+}
+
+
+.preferences-artist-card-wrapper:hover {
+    cursor:pointer;
+    .artist-card-hover-effect {
+        opacity: 1;
+        height: 100%;
+        transition: height ease-in-out 250ms, opacity ease-in-out 250ms;
+        -webkit-transition:height ease-in-out 250ms, opacity ease-in-out 250ms;
+    }
+
+}
