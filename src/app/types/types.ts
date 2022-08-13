@@ -1,12 +1,18 @@
-import { Key } from "react";
+
 
 export type User = {
-  name?: string;
-  email: string;
-  password?: string;
-  preferences?: object;
+  name?: string|undefined;
+  email: string|undefined;
+  password?: string|undefined;
+  preferences?: Preferences;
   _id?: string;
   token?: string;
+};
+
+export type Preferences = {
+  artists: { id: number }[];
+  popularity: { id: number }[] ;
+  genres: { id: number }[];
 };
 
 
@@ -15,11 +21,17 @@ export type Action = {
   payload?: any;
 };
 
-export type State = {
+export type UserState = {
   loading: boolean;
-  userInfo: User | undefined;
+  userInfo: User;
   error: any;
 };
+
+export type PreferencesState = {
+  popularity: Genre[];
+  artists: Artist[];
+  genres: Genre[];
+}
 
 export type Artist = {
   adult: boolean;
@@ -37,15 +49,17 @@ export type Genre = {
   name: string;
 };
 
-export interface PreferencesProps{
-  genres: Genre[];
-  popularArtists:Artist[]
 
+
+
+export interface PreferencesProps {
+  movieTypes: Genre[];
+  popularArtists: Artist[];
 }
 
 
 export type PreferencesCartProps= {
-  items: Artist[]|Genre[];
-  header: string
-  type:string
+  items: Artist[] | Genre[];
+  header: string;
+  type: string;
 }

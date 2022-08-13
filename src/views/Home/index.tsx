@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { PropsWithoutRef, PropsWithRef, ReactPropTypes } from 'react';
 import { useAppSelector } from '../../app/storage/store';
+import { Preferences, PreferencesState } from '../../app/types/types';
 
-function Home() {
+function Home(props:any) {
+    const { movies } = props;
 
     const selector = useAppSelector((state) => state.user)
     const { userInfo } = selector;

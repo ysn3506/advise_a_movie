@@ -1,7 +1,7 @@
 
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useAppSelector } from '../../app/storage/store';
-import { register } from '../../app/storage/redux/actions';
+import { register } from '../../app/storage/redux/user/actions';
 import { Form, Button } from 'semantic-ui-react'
 import { User } from '../../app/types/types';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +45,7 @@ function RegisterForm(props: any) {
                 name: name + " " + lastName,
                 email: email,
                 password: password,
-                preferences: {}
+                preferences: {artists:[],genres:[], popularity:[]}
             }
             register({ name: user.name, email: user.email, password: user.password })
         }

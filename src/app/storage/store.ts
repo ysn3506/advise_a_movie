@@ -1,10 +1,10 @@
-import { configureStore, ThunkAction, Action,combineReducers, applyMiddleware, CombinedState } from '@reduxjs/toolkit';
-import { userReducer } from './redux/reducers';
+import { configureStore, ThunkAction, Action,combineReducers } from '@reduxjs/toolkit';
+import { userReducer } from './redux/user/reducers';
+import { preferencesReducer } from "./redux/preferences/reducers";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'; 
 
 import thunk from 'redux-thunk';
-
-
+import { moviesReducer } from './redux/movies/reducers';
 
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
@@ -12,10 +12,10 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 
 
-
-
 const reducer=combineReducers({
-  user:userReducer
+  user: userReducer,
+  preferences: preferencesReducer,
+  movies:moviesReducer
   })
 
 

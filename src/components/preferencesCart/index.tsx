@@ -17,8 +17,8 @@ function PreferencesCart({ items, header, type }: PreferencesCartProps) {
             <List horizontal>
                 {
                     items.map((item: Artist|Genre) => <List.Item key={item.name}>
-                        {type === "genre" ?
-                            <PreferencesButton item={item}/>
+                        {type !== "artist" ?
+                            <PreferencesButton item={item} type={type}/>
                             :
                             <PreferencesArtistCard item={item}/>
 

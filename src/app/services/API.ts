@@ -1,5 +1,6 @@
 import { User } from "../types/types";
 import api from "./API_BASE";
+import axios from "axios";
 
 export const getGenres = async () => {
   try {
@@ -57,22 +58,57 @@ export const getLatestArtists = async () => {
   }
 };
 
-
-
-
-export const getMoviesByCriterias = async (query: any) => {
+export const getPopularMovies = async () => {
   try {
-    let endpoint =
-      await `/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US&sort_by=popularity.desc`;
-    await Object.keys(query).forEach((key: string) => {
-      endpoint = endpoint + `&${key}=${query[key]}`;
-    });
-    const response = await api.get(endpoint);
+    const response = await api.get(
+      `movie/popular?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
+
+
+export const getBestMovies = async () => {
+  try {
+    const response = await api.get(
+      `movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const getTopRatedMovies = async () => {
+  try {
+    const response = await api.get(
+      `movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+ export const getMoviesByCriterias = async (queryKeyword:string, queryValue:string) => {
+  try {
+    let endpoint = await `/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&language=en-US&sort_by=popularity.desc&${queryKeyword}=${queryValue}`;
+    // await Object.keys(query).forEach((key: string) => {
+    //   endpoint = endpoint + `&${key}=${query[key]}`;
+    // });
+    const response = await api.get(endpoint);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+ };
+
+
+ 
 
 
 
@@ -82,12 +118,22 @@ export const registerUser = (user: User) =>
   api.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users`, user);
 
 
-export const authUser = (user: User) =>
-  api.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users/login`, user);
+export const authUser = (user: User) =>api.post(`${process.env.REACT_APP_USER_BACKEND_URL}/api/users/login`, user);
  
 
-export const updateUser = (user: User) =>api.post(
-      `${process.env.REACT_APP_USER_BACKEND_URL}/api/users/profile`,
-     user
-    );
+export const updateUser = (user: User) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
+  return axios.post(
+    `${process.env.REACT_APP_USER_BACKEND_URL}/api/users/profile`,
+    user, config
+  );
+}
+  
+  
  

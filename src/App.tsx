@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate, useHref } from "react-router-dom";
-import { USER_LOGIN_SUCCESS } from './app/storage/redux/constants';
+import { USER_LOGIN_SUCCESS } from './app/storage/redux/user/constants';
 import { CSSTransition, SwitchTransition } from "react-transition-group";
-import Cookies from "js-cookie";
-import { getGenres, getLatestArtists, getPopularArtists } from './app/services/API';
+import { getGenres, getPopularArtists } from './app/services/API';
 import RegisterForm from './views/Forms/registerForm';
 import LoginForm from './views/Forms/loginForm';
 import Home from './views/Home';
-import { useAppDispatch, useAppSelector } from './app/storage/store';
+import { store,useAppDispatch, useAppSelector } from './app/storage/store';
 import Preferences from './views/Preferences';
+import { getCookie, getMovies } from './app/utilities';
 
 
 
@@ -17,40 +17,41 @@ import Preferences from './views/Preferences';
 function App(props: any) {
   const [genres, setGenres] = useState([]);
   const [popularArtists, setPopularArtists] = useState([]);
-  const [latestArtists, setLatestArtists] = useState([])
   const dispatch = useAppDispatch();
 
 
   const goTo = useHref
 
   const { userInfo } = useAppSelector((state) => state.user);
-
+  const {_id,preferences}=userInfo
+  
 
 
 
   useEffect(() => {
+    const user: string | undefined = getCookie('userInfo')
+    if (user) {
+      const userData = JSON.parse(user);
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: userData })
+
+    }  
+
     getGenres()
-      .then(resp =>
-        setGenres(resp.genres)
-    )
-      
-    getPopularArtists()
+      .then(resp =>setGenres(resp.genres)
+    ).then(() => getPopularArtists())
       .then(resp => setPopularArtists(resp.results))
-
-
-    getLatestArtists()
-    .then(resp=>setLatestArtists(resp.results))    
       .then(() => {
-        const user: string | undefined = Cookies.get("userInfo")
-        if (user) {
-          const userInfo = JSON.parse(user);
-          dispatch({ type: USER_LOGIN_SUCCESS, payload: userInfo })
-        }
+        const { userInfo: { preferences: { popularity, artists, genres } } } = store.getState().user;
+        getMovies(popularity,artists,genres)
       })
       .catch((error) => {
+        console.log(error)
+        console.log("burada")
         goTo("/login");
         throw error
       })
+    
+    
   }, [])
 
 
@@ -59,30 +60,30 @@ function App(props: any) {
     <div className="App">
       <div className='app-wrapper'>
       <SwitchTransition mode="out-in">
-        <CSSTransition key={userInfo} classNames="fade" timeout={250}>
+        <CSSTransition key={window.location.pathname} classNames="fade" timeout={250}>
           <BrowserRouter>
             <Routes>
               <Route
                 path="/"
                 element={
-                  userInfo ? <Navigate to="/home" /> : <Navigate to="/login" />
+                  _id ? <Navigate to="/home" /> : <Navigate to="/login" />
                 }
               />
               <Route
                 path="/register"
-                element={userInfo ? <Navigate to="/home" /> : <RegisterForm />}
+                  element={_id ? <Navigate to="/home" /> : <RegisterForm />}
               />
               <Route
                 path="/home"
-                element={userInfo ? <Home /> : <Navigate to="/login" />}
+                  element={_id ? <Home movies={preferences} /> : <Navigate to="/login" />}
               />
               <Route
                 path="/login"
-                element={userInfo ? <Navigate to="/home" /> : <LoginForm />}
+                  element={_id ? <Navigate to="/home" /> : <LoginForm />}
               />
               <Route
                 path="/preferences"
-                element={userInfo ? <Preferences genres={genres} popularArtists={popularArtists}/> : <Navigate to="/login" />}
+                  element={_id ? <Preferences movieTypes={genres} popularArtists={popularArtists}/> : <Navigate to="/login" />}
               />
 
               {/* <Route path="*" element={<Error />} /> */}

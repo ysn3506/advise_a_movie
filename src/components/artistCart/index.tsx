@@ -3,7 +3,6 @@ import './style.scss'
 
 
 function ArtistCart(props: any) {
-    console.log(props)
     const { artist } = props;
     const { profile_path, name } = artist;
 

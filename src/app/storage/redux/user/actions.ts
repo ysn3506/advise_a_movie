@@ -1,8 +1,8 @@
 
-import { authUser, registerUser, updateUser } from "../../services/API";
-import { User } from "../../types/types";
-import { store } from "../store";
-import Cookies from "js-cookie";
+import { authUser, registerUser, updateUser } from "../../../services/API";
+import { User } from "../../../types/types";
+import { store } from "../../store";
+import { deleteCookie, getMovies, setCookie } from "../../../utilities";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -15,7 +15,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from "./constants";
-import { in30Minutes } from "./utilities";
+
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -24,10 +24,12 @@ export const login = (user: User) => {
   store.dispatch({ type: USER_LOGIN_REQUEST });
   authUser(user).then((resp) => {
     store.dispatch({ type: USER_LOGIN_SUCCESS, payload: resp.data });
-    Cookies.set("userInfo", JSON.stringify(resp.data), {
-      expires: in30Minutes(),
-    });
-  }).catch(error => {
+    console.log(resp)
+    setCookie("userInfo", JSON.stringify(resp.data), 1);
+    
+    
+  })
+    .catch (error => {
     store.dispatch({
       type: USER_LOGIN_FAIL,
       payload:
@@ -39,41 +41,44 @@ export const login = (user: User) => {
 }
 
   export const logout = () => {
-    Cookies.remove("userInfo");
+    deleteCookie("userInfo")
     store.dispatch({ type: USER_LOGOUT });
   };
 
-  export const register = ({ name, email, password, preferences = {} }: User) => {
+  export const register = ({
+    name,
+    email,
+    password,
+    preferences = { artists: [], popularity: [], genres: [] },
+  }: User) => {
     store.dispatch({ type: USER_REGISTER_REQUEST });
     registerUser({
       name,
       email,
       password,
       preferences,
-    }).then((resp) => {
-      store.dispatch({ type: USER_REGISTER_SUCCESS, payload: resp.data });
-      Cookies.set("userInfo", JSON.stringify(resp.data), {
-        expires: in30Minutes(),
-      });
-      store.dispatch({ type: USER_LOGIN_SUCCESS, payload: resp.data });
-    }).catch(error => {
-      store.dispatch({
-        type: USER_REGISTER_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
     })
+      .then((resp) => {
+        store.dispatch({ type: USER_REGISTER_SUCCESS, payload: resp.data });
+        setCookie("userInfo", JSON.stringify(resp.data), 1);
+        store.dispatch({ type: USER_LOGIN_SUCCESS, payload: resp.data });
+      })
+      .catch((error) => {
+        store.dispatch({
+          type: USER_REGISTER_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      });
   };
 
   export const updateProfile = (user: User) => {
     store.dispatch({ type: USER_UPDATE_REQUEST });
     updateUser(user).then((resp) => {
       store.dispatch({ type: USER_UPDATE_SUCCESS, payload: resp.data });
-      Cookies.set("userInfo", JSON.stringify(resp.data), {
-        expires: in30Minutes(),
-      });
+     setCookie("userInfo", JSON.stringify(resp.data), 1);
       store.dispatch({ type: USER_LOGIN_SUCCESS, payload: resp.data });
     }).catch(error => {
       store.dispatch({
