@@ -10,6 +10,7 @@ import Home from './views/Home';
 import { store,useAppDispatch, useAppSelector } from './app/storage/store';
 import Preferences from './views/Preferences';
 import { getCookie, getMovies } from './app/utilities';
+import Header from './components/header';
 
 
 
@@ -58,6 +59,7 @@ function App(props: any) {
   return (
     <div className="App">
       <div className='app-wrapper'>
+        <Header/>
       <SwitchTransition mode="out-in">
         <CSSTransition key={window.location.pathname} classNames="fade" timeout={250}>
           <BrowserRouter>

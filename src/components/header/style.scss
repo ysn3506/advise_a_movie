@@ -1,0 +1,141 @@
+.header-wrapper {
+    display: flex;
+    width: 80%;
+    color: white;
+    padding: 40px 0;
+    justify-content: space-between;
+    
+    .header-logo, .header-menu, .header-search{
+        width:26.66vw
+    }
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-family: 'Rubik Distressed', cursive;
+            margin: auto auto auto 15px
+        }
+
+    }
+
+    .header-search {
+        width: 600px;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .search {
+            width: 600px;
+            input{
+                width:600px;
+            }
+
+            .results{
+                width:100%!important;
+            }
+        }
+    }
+
+    .header-menu {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        color: white!important;
+        text-align: right;
+.ui.simple.active.dropdown>.menu,
+.ui.simple.dropdown:hover>.menu{
+    width:125%;
+}
+        .divider.text {
+            color:white !important;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px!important;
+            font-weight: bold;
+        
+        }
+
+        i{
+            color:white!important;
+         
+        }
+        .person-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+        }
+
+
+    }
+}
+
+@media screen and (max-width:1150px) {
+    .header-wrapper {
+        .header-logo{
+            order:1;
+            width:50%;
+            
+        }
+        .header-search{
+
+                order: 3;
+                position: absolute;
+                width: 80%;
+                top: 140px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            .search {
+                width: 100%;
+            
+                input {
+                    width: 80vw;
+                }
+            }
+        }
+       .header-menu{
+           order:2;
+           width:40%;
+            .divider.text {
+                display: none;
+            }
+
+            .person-icon{
+               margin-right:2px;
+            }
+
+            .ui.simple.active.dropdown>.menu,
+            .ui.simple.dropdown:hover>.menu{
+                left: -70px;
+                top: 30px !important;
+            }
+       }
+    }
+}
+
+
+@media screen and (max-width:991px) {
+    .header-wrapper {
+        .header-logo{
+            width:60%;
+            img {
+                display: none;
+            }
+            
+           h1.brand {
+                margin-left: 0;
+                text-align: left;
+            }
+        }
+    }
+}

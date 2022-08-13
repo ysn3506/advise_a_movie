@@ -31,8 +31,6 @@ function Home() {
     }
     return (
         <div className="home-wrapper">
-            <h1>Deneme</h1>
-            {name && <h2>Hoşgeldin {name}</h2>}
             {
                 Object.keys(movies).map((item) => {
                     if (movies[item].length > 0) {
