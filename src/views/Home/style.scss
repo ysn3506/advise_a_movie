@@ -1,0 +1,14 @@
+.home-wrapper{
+    width:80%;
+    padding:60px 10px;
+    min-height: 100vh;
+    border-radius: 20px;
+
+    .section-title{
+        text-align:left;
+        margin-top:18px;
+    }
+    .movie-grid{
+        justify-content: space-around;
+    }
+}

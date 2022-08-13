@@ -15,7 +15,7 @@ import { getCookie, getMovies } from './app/utilities';
 
 
 function App(props: any) {
-  const [genres, setGenres] = useState([]);
+  const [genreTypes, setGenres] = useState([]);
   const [popularArtists, setPopularArtists] = useState([]);
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ function App(props: any) {
   const goTo = useHref
 
   const { userInfo } = useAppSelector((state) => state.user);
-  const {_id,preferences}=userInfo
+  const { _id, preferences: { popularity, artists, genres }}=userInfo
   
 
 
@@ -41,7 +41,6 @@ function App(props: any) {
     ).then(() => getPopularArtists())
       .then(resp => setPopularArtists(resp.results))
       .then(() => {
-        const { userInfo: { preferences: { popularity, artists, genres } } } = store.getState().user;
         getMovies(popularity,artists,genres)
       })
       .catch((error) => {
@@ -75,7 +74,7 @@ function App(props: any) {
               />
               <Route
                 path="/home"
-                  element={_id ? <Home movies={preferences} /> : <Navigate to="/login" />}
+                  element={_id ? <Home/> : <Navigate to="/login" />}
               />
               <Route
                 path="/login"
@@ -83,7 +82,7 @@ function App(props: any) {
               />
               <Route
                 path="/preferences"
-                  element={_id ? <Preferences movieTypes={genres} popularArtists={popularArtists}/> : <Navigate to="/login" />}
+                  element={_id ? <Preferences movieTypes={genreTypes} popularArtists={popularArtists}/> : <Navigate to="/login" />}
               />
 
               {/* <Route path="*" element={<Error />} /> */}

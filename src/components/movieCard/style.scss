@@ -1,0 +1,32 @@
+.movie-card {
+    margin: auto !important;
+
+
+    p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    p.title {
+        -webkit-line-clamp: 1;
+        color: black;
+    }
+
+    p.description {
+        color: gray;
+    }
+
+    a {
+        span {
+            color: #2185d0 !important;
+            ;
+        }
+
+        display: flex;
+        justify-content: space-around;
+        margin:5px auto;
+
+    }
+}

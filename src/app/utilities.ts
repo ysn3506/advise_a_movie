@@ -69,7 +69,6 @@ export const getMovies = (popularity:Genre[], artists:Artist[], genres:Genre[]) 
     setGenres()
     .then((resp) => setGenreMovies(resp.results))
       .then(() => {
-      console.log(artists)
       if (artists.length > 0)
         return getMoviesByCriterias("with_people", artistKeyword);
       return [];
