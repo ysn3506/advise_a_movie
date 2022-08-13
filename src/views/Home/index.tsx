@@ -26,6 +26,8 @@ function Home() {
             default:
                 break;
         }
+
+       
     }
     return (
         <div className="home-wrapper">
@@ -38,7 +40,7 @@ function Home() {
                             <h2 className='section-title'>{titleConverter(item)}</h2>
                             <Grid className='movie-grid'>
                                 {movies[item].map((el: any) =>
-                                    <Grid.Column mobile={16} tablet={5} computer={4} key={el}><MovieCard movie={el} /></Grid.Column>)}
+                                    <Grid.Column mobile={16} tablet={8} computer={4} key={el}><MovieCard movie={el} /></Grid.Column>)}
                             </Grid>
 
                         </Container>
@@ -49,14 +51,6 @@ function Home() {
                  
                 )
             }
-
-
-            <Container>
-
-            </Container>
-            <Container>
-
-            </Container>
 
         </div>
     );
