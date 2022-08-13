@@ -18,16 +18,24 @@
 }
 
 h2,p,h1,div,h3,span,a{
-  color:white;
+  color:black;
   font-family: "Roboto",sans-serif;
 }
 
 
+.section-title {
+  text-align: left;
+  margin: 80px auto 20px auto;
+  font-size: 28px;
+  font-weight: 900;
+  font-style: normal;
+}
+
 .primary-button{
-background-color: #2185d0!important;
+background-color: rgba(19, 30, 45, 0.8)!important;
 color:white!important;
 margin:5px!important;
-border:1px solid #2185d0 !important;
+border:1px solid rgba(19, 30, 45, 0.8) !important;
 
 }
 
@@ -38,8 +46,8 @@ border:1px solid #2185d0 !important;
 
 .secondary-button{
   background-color: white!important;
-  color: #2185d0!important;
-  border:1px solid #2185d0!important;
+  color: rgba(19, 30, 45, 0.8)!important;
+  border:1px solid rgba(19, 30, 45, 0.8)!important;
 margin:5px !important;
 }
 
@@ -81,4 +89,15 @@ opacity: 0.75;
 .fade-exit.fade-exit-active {
   opacity: 0;
   transition: opacity 250ms ease-out;
+}
+
+
+
+@media screen and (max-width:991px) {
+    .section-title {
+      text-align: center;
+      font-size: 21px;
+    }
+  
+
 }
